@@ -1,6 +1,6 @@
 # Site settings
 title: sone
-SEOTitle: 宋晓鹏 | sone
+SEOTitle: 宋晓鹏的博客 | sone
 header-img: img/home-bg.jpg
 email: sonexpeng@gmail.com
 description: "欢迎~"
@@ -84,17 +84,5 @@ friends: [
     {
         title: "Hux Blog",
         href: "http://huangxuan.me"
-    },{
-        title: "Foo",
-        href: "#"
-    },{
-        title: "Bar",
-        href: "#"
-    },{
-        title: "Example Friends",
-        href: "#"
-    },{
-        title: "It helps SEO",
-        href: "#"
     }
 ]
