@@ -1,3 +1,10 @@
+---
+title:      "RESUME"
+subtitle:   "Hello World, Hello Blog"
+date:       2018-01-14 22:28:00
+author:     "sone"
+header-img: "img/post-bg-2015.jpg"
+---
 # resume
 
 你好
