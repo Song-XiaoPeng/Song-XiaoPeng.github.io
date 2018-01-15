@@ -88,5 +88,9 @@ friends: [
     {
         title: "jekyll",
         href: "https://www.jekyll.com.cn/"
+    },
+    {
+        title: "sone的时光轴",
+        href: "http://sone.timeline.hellobirds.top/Timeline.html"
     }
 ]
