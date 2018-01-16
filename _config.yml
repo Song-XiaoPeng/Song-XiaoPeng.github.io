@@ -92,5 +92,9 @@ friends: [
     {
         title: "sone的时光轴",
         href: "http://sone.timeline.hellobirds.top/Timeline.html"
+    },
+    {
+        title: "Liquid Template Engine",
+        href: "https://shopify.github.io/liquid/"
     }
 ]
