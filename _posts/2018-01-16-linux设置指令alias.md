@@ -1,3 +1,13 @@
+---
+layout:     post
+title:      "Linux别名使指令更简单"
+subtitle:   "linux别名"
+author:     "Sone"
+header-img: "img/post-bg-js-version.jpg"
+tags:
+    - Linux
+---
+
 ## Linux为指令添加别名alias
 
 ### linux中alias永久化的方法：
