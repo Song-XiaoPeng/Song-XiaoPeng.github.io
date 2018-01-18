@@ -25,7 +25,7 @@ facebook_username:  sone
 highlighter: rouge
 permalink: pretty
 paginate: 10
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","README.zh.md"]
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
 
 
@@ -88,5 +88,13 @@ friends: [
     {
         title: "jekyll",
         href: "https://www.jekyll.com.cn/"
+    },
+    {
+        title: "sone的时光轴",
+        href: "http://sone.timeline.hellobirds.top/Timeline.html"
+    },
+    {
+        title: "Liquid Template Engine",
+        href: "https://shopify.github.io/liquid/"
     }
 ]
