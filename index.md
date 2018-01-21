@@ -1,9 +1,8 @@
 ---
 layout: page
 title:      "ABOUT"
-subtitle:   "Hello World, Hello Birds"
 author:     "sone"
-header-img: "img/post-bg-2015.jpg"
+description: "PHP程序员，业余前端，熟悉Vue"
 ---
 
 # resume
