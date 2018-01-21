@@ -20,7 +20,7 @@ header-img: "img/post-bg-2015.jpg"
 
 做的`PHP`，也写一些`Js`，有一个自己的小作品：[sone的时光机](http://sone.timeline.hellobirds.top/time_line/machine)，[sone的时光轴](http://sone.timeline.hellobirds.top/time_line/index)
 
-我的座右铭是`hello birds`，我把它理解为笨鸟先飞的意思，虽说`懒人`改变了世界，我认为勤奋依然是`懒人`的主旋律
+我的座右铭是`hello birds`，我把它理解为笨鸟先飞的意思，虽说`懒人`改变了世界，我认为`勤奋`依然是‘懒人’的主旋律
 
 我是一个时动时静的人，喜欢跑步、篮球、游泳、健身；也喜欢读书、思考、下棋、钓鱼；喜欢亲近自然，喜欢动物，喜欢一切感兴趣的东西。
 
