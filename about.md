@@ -1,6 +1,7 @@
 ---
+title: About
 layout: page
-author:     "sone"
+author: "sone"
 description: "PHP程序员，业余前端，熟悉Vue"
 ---
 
