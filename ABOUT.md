@@ -1,6 +1,6 @@
 ---
 layout: page
-title:      "ABOUT ME"
+title:      "ABOUT"
 subtitle:   "Hello World, Hello Birds"
 author:     "sone"
 header-img: "img/post-bg-2015.jpg"
