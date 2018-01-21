@@ -1,6 +1,5 @@
 ---
 layout: page
-title:      "ABOUT"
 author:     "sone"
 description: "PHP程序员，业余前端，熟悉Vue"
 ---
