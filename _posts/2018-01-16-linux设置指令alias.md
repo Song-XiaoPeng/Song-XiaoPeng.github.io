@@ -42,7 +42,7 @@ unalias name
 查看alias：
 
 列出目前所有的别名设置。
-alias    或    alias -p
+alias    或    alias -p  
 
 查看具体一条指令的别名
 alias 别名name
