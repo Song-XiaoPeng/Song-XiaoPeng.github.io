@@ -1,0 +1,314 @@
+---
+layout:     post
+title:      "js从基础学习"
+subtitle:   "js"
+author:     "Sone"
+header-img: "img/post-bg-js-version.jpg"
+tags:
+    - js
+---
+
+### js语法
+#### js脚本位置
+- 一般嵌套在script标签里
+- 必须在html文件中运行
+- 可以放在head、body标签里
+- 还可放在a标签里 `<a href="javascript:alert(1)">`
+- 也可放到通过script的src属性将外部的js文件引入到当前文件中
+
+#### 变量
+- 通过var let关键字声明
+#### 变量命名规范
+
+变量名最好：字母、字母数字组合、下划线的组合，不能纯数字作为变量名
+变量名严格区分大小写
+变量名不要和JavaScript关键字重复：例如：不要写this、name、string、number
+
+#### 数据类型
+- 1.字符串类型
+- 2.数值类型
+    - 小数、整数都是数值类型
+- 3.布尔类型 
+    - 在JavaScript中，’0’、[] 会被转换成true Boolean()函数强制转换类型
+- 4.函数类型
+    ```
+        可以定义变量保存函数
+        var f1 = function(){
+
+        }
+        函数的参数可以通过arguments对象进行访问
+        arguments[0]第一个参数
+        arguments[1]函数的第二个参数
+    ```
+
+    函数如果没有返回值，则收到的结果为undefined
+- 5.数组类型
+    - 定义数组的两种形式 new Array('','')
+    - 快捷语法 var arr = []
+    - 数组的遍历 for(var i=0;i<arr.length;i++) for(var a in arr)
+
+- 6.对象类型
+    - 通过构造器创建对象
+    - 快捷语法：字面量{}
+    - new Object
+    - 访问对象成员可以用.语法和[]
+    ```
+    1.构造函数
+    function snake(){
+        this.name = 1
+    }
+    var snake = new snake();
+    2.var obj = new Object()
+    ogj.nem = 1
+    ```
+- 7.null类型
+    null，指的是一个空对象的指针，可以理解为空对象的占位符
+	这里是一个对象，但是里面什么也没有，还是空的  
+    typeof(null) === obj
+- undefind类型
+一个函数没有返回值，或者声明了变量，但是未初始化值，他就是undefined
+
+#### 数据类型转换    
+
+- 自动类型转换：
+    - 当字符串、数值类型的数据，进行加法运算时，数值会自动转换成字符串
+    - 当if条件里面，会将结果自动转换成布尔类型的数据
+
+#### 强制类型转换：
+- 通过JavaScript函数，强制将某种类型转换，类型转换的函数有如下：
+- Number()  强制将其他类型的数据转换成数值
+- parseInt()  强制将其他类型的数据转换成整数
+- parseFloat()  强制将其他类型的数据转换成小数
+- String()		将其他类型的数据转换成字符串
+- Boolean()   将其他类型的数据转换成布尔类型
+
+
+### js的内置对象
+- 数组对象 
+- 数值对象
+- 字符串对象
+- 日期对象
+- 数学对象
+- 正则表达式对象
+- DOM对象
+- BOM对象
+- 事件对象
+
+#### 对象常用方法
+1. 数组对象
+```
+length，获得数组的元素个数
+concat：合并数组生成一个新数组	
+join（）：将数组的元素连接成字符串
+push()，向数组的末尾添加元素
+pop()，把数组的最后一个元素删除
+shift()，删除第一个元素
+unshift()，向数组的开头添加元素
+reverse（）颠倒数组的顺序
+slice(start，end)，截取数组的元素
+splice(startIndex，deleteCount，values) 删除数组的元素
+参数1：开始的索引位置
+参数2：删除的元素个数
+参数3：可选，如果有参数3，表示使用参数3的值代替删除的内容
+返回值：删除的内容
+toString()  将数组转换成字符串
+```
+2. 字符串对象常用方法
+```
+indexOf()，获得字符在字符串中第一次出现的位置
+lastIndexOf()，获得字符在字符串中最后一次出现的位置
+split（','），按照分隔符将字符串拆分成数组
+参数1：分隔符，按照什么分隔符进行拆分
+参数2：可选，限制要几个元素
+replace（a,b）将a替换成b
+charAt（index），查找在index这个索引处的字符
+slice(start，end)，从start开始截取，截取到end这个位置
+substr(start,length)，从start位置开始截取，截取length个长度
+toLowerCase()，将字符串转换成小写
+toUpperCase()，将字符串转换成大写
+```
+3. 数学对象常用方法
+```
+Javascript给我提供的进行数学计算的对象：Math对象
+Math.abs(num)	计算绝对值
+Math.ceil(num)，向上取整数
+不管小数点后面小数是多少，都会进一取整
+Math.floor()，向下取整数
+不管小数点后面是多少，忽略小数点后面的
+Math.round()，四舍五入取整
+Math.max(1,2,3)，计算最大值
+Math.min()，计算最小值
+Math.pow(x,y) 获得x的y次方【幂】
+例如：2的3次方：2*2*2，Math.pow(2,3)
+Math.sqrt(num) 获得num的平方根
+Math.random()	取得0-1之间的随机数
+```
+
+### 日期对象常用方法
+通过new Date()获得日期对象
+```
+日期对象提供了如下方法，获得年月日、时分秒：
+getFullYear、getMonth()、getDate()、getHours()、getMinutes()、getSeconds()
+getDay()	获得星期几
+getMilliSeconds() 获得时间后面的毫秒数：1000毫秒==1秒
+getTime()，获得当前的时间戳（单位是毫秒的时间戳）
+toLocaleString()，将日期对象转换成本地的时间格式
+设置时间：
+setFullYear()
+setMonth()
+setDate()
+```
+
+### 正则表达式对象
+- 说明
+
+在学习PHP的时候，学习了正则表达式的语法，正则表达式有自己独立的语法，我们主要学习了PHP如何兼容正则表达式的语法的
+
+今天学习JavaScript如何兼容正则表达式的语法
+
+PHP侧重在采集数据，再使用正则表达式进行过滤
+
+JavaScript侧重在注册时、添加数据时的验证
+- 定义正则表达式对象：
+方法1：new RegExp(正则表达式，模式修正符)
+
+方法2：//模式修正符，没有引号包裹
+
+注意：
+```
+在php中如果全局匹配使用，preg_match_all
+在javascript中，如果全局匹配，使用 模式修正符 g表示
+在javascript中，表示中文的范围：[\u4e00-\u9fa5]
+在javascript中，不支持逆向预查，支持正向预查
+Javascript的正则表达式对象，提供了2个方法，用来检测
+		 test()，检测是否符合规则；是就返回true，否就返回false
+		 exec()，检测是否符合规则，符合就返回匹配的内容，不符合就返回null
+
+```
+
+### DOM对象
+
+DOM，文档对象模型（模子）
+Document ，文档，JavaScript指的是html文档
+Object  ，对象，指的JavaScript对象
+Model	，模型（模子），将原材料-生成产品；
+在JavaScript里面DOM就是将html文档里面的标签，转换成JavaScript的对象
+
+什么时候将html文档里面的标签转换成JavaScript的对象呢？
+当我们在浏览器打开html文档的时候，就已经将标签转换成对象了
+我们的操作主要是，先通过JavaScript查找对象，再进行操作
+
+说明：
+（1）	DOM将html标签转换成JavaScript对象之后，标签里面的属性也会被转换JavaScript对象的属性
+（2）	Html文档里面的标签，不是孤立存在的，标签之间是有层级关系的，当转换成JavaScript的对象之后，这些层级关系依然存在
+
+1. 查找dom节点
+    - document.getElementById() 通过id属性查找：
+    - document.getElementsByTagName() 通过标签名查找，会找到很多对象，返回的是数组格式
+    - document.getElementsByName() 通过name属性查找：
+    - document.getElementsByClassName
+    - title、body，由于html文档中只有一个，查找的时候，可以直接这样：
+
+    document.title ：title标签节点对象
+    document.body：body节点对象
+    document.body.style.background = 'green';
+
+2. DOM节点操作：
+
+说明：查找到DOM对象之后，我们做什么呢？
+
+一个标签，无非就是由属性、内容、css样式组成，所以我们对DOM节点的操作也就是：
+
+操作属性：
+
+	方法1：DOM对象.属性名
+    方法2：通过对象方法setAttribute、getAttribute、removeAttribute
+
+操作内容：innerText、innerHTML
+
+    innerText，仅操作文字内容部分
+    innerHTML，可以操作标签中的html子标签
+
+操作样式
+
+	方法1：DOM节点对象.style.css样式名，如果css样式是合成词，例如：font-size，background-color，设置css样式时，需要采用小驼峰的规则
+	方法2：通过className来设置、读取class属性的值
+
+
+DOM节点类型：
+
+通过下面的例子，我们发现ul下面有7个子节点，空白部分也被当做是节点对象
+```
+<ul>
+    <li></li><li></li><li></li>
+</ul>
+
+```
+DOM将html文档转换成JavaScript对象之后
+
+标签被当做标签节点，类型是1 oUl.attributes oUl.nodeName oUl.nodeType
+
+属性部分被当做属性节点，类型是2
+
+空白部分会被当做是空白节点，类型为3
+
+DOM节点之间的关系：
+
+说明：
+
+由于节点之间如果有空白节点的话，不方便获得具体的节点，所以我们通常会先将空白节点删除，再查找
+
+删除节点的语法：父节点.removeChild(子节点)
+
+父子关系
+
+childNodes：属性，获得节点下面的所有子节点
+
+firstChild：属性，第一个子节点
+
+lastChild：属性，最后一个子节点
+
+parentNode：属性，获得当前节点的父节点
+
+兄弟姐妹
+
+previousSibling：当前节点的前一个同辈节点，哥哥、姐姐
+
+nextSibling：当前节点的下一个同辈节点，弟弟、妹妹
+
+DOM节点添加、删除：
+
+添加节点分为2个步骤：
+
+创建标签节点：document.createElement()
+
+确定其位置：appendChild、insertBefore
+
+删除节点：父节点.removeChild(子节点)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
