@@ -12,4 +12,4 @@ Your requirements could not be resolved to an installable set of packages.
     - D:\amp\php\php-7.0.12-nts\php.ini
   You can also run `php --ini` inside terminal to see which files are used by PHP in CLI mode.
 ```
-½â¾ö·½·¨£º ¿ªÆôphpinfoÀ©Õ¹
+è§£å†³æ–¹æ³•ï¼š å¼€å¯phpinfoæ‰©å±•
