@@ -25,7 +25,7 @@ description: "PHP程序员，业余js"
 
 理想家人健康，世界和平
 
-1年之后我会去bat
+信念：1年之后我会去bat
 
 hello birds
 
