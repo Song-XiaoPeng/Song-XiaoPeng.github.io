@@ -1,0 +1,7 @@
+
+ 
+1. EmployeeController update 系统管理-后台用户 model:Employee -- a_agent_emp
+	- 若是员工
+2. AgentController agentChangeAdminPassword 代理管理-代理列表 model:User -- a_agent_emp 
+	- 若是自己修改密码，则不提示
+
