@@ -1,8 +1,8 @@
----
+﻿---
 title: About
 layout: page
 author: "sone"
-description: "PHP程序员，业余js"
+description: "PHP程序员，业余JS"
 ---
 
 # resume
@@ -13,7 +13,7 @@ description: "PHP程序员，业余js"
 
 > 臣本布衣，躬耕于南阳
  
-小作品：[sone的时光机](http://sone.timeline.hellobirds.top/)
+个人网站：[sone的时光机](http://sone.timeline.hellobirds.top/)
 
 我的微信公众号：![欢迎关注]({{ site.url }}/img/wechat_gzh.jpg)
 
