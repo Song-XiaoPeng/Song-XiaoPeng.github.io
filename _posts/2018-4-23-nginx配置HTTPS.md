@@ -69,6 +69,18 @@ php7.0 -r"unlink('composer-setup.php');"
 
 ## 附上nginx配置
 ```
+# 配置重定向
+server {
+  listen    80;
+  server_name hellobirds.top www.hellobirds.top sone.hellobirds.top;
+  #server_name localhost;
+  if ($host == 'www.hellobirds.top' ) { 
+    rewrite ^/(.*)$ https://www.hellobirds.top/$1 permanent; 
+  } else {
+    rewrite ^/(.*)$ https://sone.hellobirds.top/$1 permanent; 
+  }
+}
+
 server {
     listen 443;
     server_name www.yourwebsite.com;
