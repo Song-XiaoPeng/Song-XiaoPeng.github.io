@@ -1,13 +1,14 @@
 ### location directive
 
 >Syntax:	location [ = | ~ | ~* | ^~ ] uri { ... }
-location @name { ... }
-Default:	—
-Context:	server, location
 
-语法 ： location [ = | ~ | ~* | ^~ ] uri { ... }  
-location @name { ... } 命名location
-语境： server, location
+location @name { ... }  
+Default:	—  
+Context:	server, location  
+  
+语法 ： location [ = | ~ | ~* | ^~ ] uri { ... }    
+location @name { ... } 命名location  
+语境： server, location  
 
 >Sets configuration depending on a request URI.
 
