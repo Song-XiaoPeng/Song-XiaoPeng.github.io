@@ -1,7 +1,7 @@
 ### 版本
 `nginx -v`  1.10.0
 
-### proxy_pass指令文档
+### proxy_pass directive
 >Syntax:	proxy_pass URL;  
 Default:	—  
 Context:	location, if in location, limit_except  
@@ -126,6 +126,12 @@ server {
 
         location ^~ /bd5/ {
                 proxy_pass http://www.baidu.com/;
+        }
+
+        location ~ /bd6/ {
+                proxy_pass http://www.baidu.com/foo/bar;
+                # 这样写是错误，当location的值是一个正则表达式时，proxy_pass指令的值不能有uri
+                # 所以应该这样写： http://www.baidu.com;
         }
 
 
