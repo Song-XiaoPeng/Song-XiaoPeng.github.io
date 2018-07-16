@@ -1,92 +1,239 @@
-### location directive
-
->Syntax:	location [ = | ~ | ~* | ^~ ] uri { ... }
-
-location @name { ... }  
-Default:	—  
-Context:	server, location  
+### rewrite directive
   
-语法 ： location [ = | ~ | ~* | ^~ ] uri { ... }    
-location @name { ... } 命名location  
-语境： server, location  
+>Syntax:	rewrite regex replacement [flag];  
+Default:	—  
+Context:	server, location, if  
 
->Sets configuration depending on a request URI.
+语法：  rewrite regex(正则表达式) replacement(替换)     [flag]   
+默认：  
+语境：  
 
-设置依赖于一个请求URI的配置项
+>If the specified regular expression matches a request URI, URI is changed as specified in the replacement string. The rewrite directives are executed sequentially in order of their appearance in the configuration file. It is possible to terminate further processing of the directives using flags. If a replacement string starts with “http://”, “https://”, or “$scheme”, the processing stops and the redirect is returned to a client.
 
->The matching is performed against a normalized URI, after decoding the text encoded in the “%XX” form, resolving references to relative path components “.” and “..”, and possible compression of two or more adjacent slashes into a single slash.
+如果指定的正则表达式匹配了一个请求URI，URI会被改变为指令中指定的替代字符串。rewrite(重写)指令按照在配置文件中出现的顺序被有序的执行。通过使用flags指令，可以终止进一步的进程。如果一个替代的字符串是以“http://”, “https://”, 或 “$scheme”开头的，进程会停止，并且一个重定向将被返回给客户端。
 
-该匹配项是应用在一个标准格式的URI上，在将编码方式为'%xx'格式的text文本解码后，解析对相对路径组件'.'和'..'的引用，并且可能将2个或多个相邻的斜线压缩成一个斜线。
+>An optional flag parameter can be one of:
 
->A location can either be defined by a prefix string, or by a regular expression. Regular expressions are specified with the preceding “~*” modifier (for case-insensitive matching), or the “~” modifier (for case-sensitive matching). To find location matching a given request, nginx first checks locations defined using the prefix strings (prefix locations). Among them, the location with the longest matching prefix is selected and remembered. Then regular expressions are checked, in the order of their appearance in the configuration file. The search of regular expressions terminates on the first match, and the corresponding configuration is used. If no match with a regular expression is found then the configuration of the prefix location remembered earlier is used.
+一个可选择的flag(标志)参数可以是下面中的一个：
 
-一个路径(的值)可以被定义为一个前缀的字符串，或者是一个正则表达式。正则表达式是通过在前面的'~*'修饰语被定义的（大小写不敏感），或者是'~'修饰语（大小写敏感）。为了找到和一个给予的请求相匹配的路径，nginx首先检查那些使用前缀字符串（前缀路径）定义的路径。在它们之中，有着最长匹配前缀的路径会被选择和被记下来。之后，正则表达式被选择，以它们在配置文件中出现的顺序。对于正则表达式的搜素在第一次匹配时会终止，并且相应的配置项会被应用。如果没有一个正则表达式的匹配被发现，那么之前被记住的那个前缀的路径的配置项会被应用。
+>last  
+stops processing the current set of ngx_http_rewrite_module directives and starts a search for a new location matching the changed URI;
 
->location blocks can be nested, with some exceptions mentioned below.
+last  最后  
+停止运行当前设置的ngx_http_rewrite_module指令，并且为一个新的匹配这个被改变的URI的location(路径)开始一个搜索。
 
-location路径块可以是嵌套的，通过使用一些其它的下面提及的格式。
+>break  
+stops processing the current set of ngx_http_rewrite_module directives as with the break directive;
 
->For case-insensitive operating systems such as macOS and Cygwin, matching with prefix strings ignores a case (0.7.7). However, comparison is limited to one-byte locales.
+break  打断  
+通过使用break指令，停止处理当前ngx_http_rewrite_module指令的设置（停止使用break指令处理当前的ngx_http_rewrite_module指令集）；
 
-对于那些大小写敏感的运行系统，例如mac系统和Cygwin，前缀字符串的匹配会忽略一个情况（0.7.7）。然而，比较仅仅限于1字节的区域。
+>redirect  
+returns a temporary redirect with the 302 code; used if a replacement string does not start with “http://”, “https://”, or “$scheme”;
 
->Regular expressions can contain captures (0.7.40) that can later be used in other directives.
+redirect 重定向，跳转  
+返回一个暂时的状态码为302的临时重定向；当替换的字符串不是以“http://”, “https://”, 或者 “$scheme”开始的可以使用该指令；
 
-正则表达式可以包含捕获（子组）（0.7.40），之后可以被用于其他的指令中
+>permanent  
+returns a permanent redirect with the 301 code.
+The full redirect URL is formed according to the request scheme ($scheme) and the server_name_in_redirect and port_in_redirect directives.
 
->If the longest matching prefix location has the “^~” modifier then regular expressions are not checked.
+permanent  永久的  
+返回一个状态码为301的永久的重定向。  
+这个完整的重定向URL依据请求依据请求的scheme(协议)和server_name_in_redirect(重定向的server_name)和port_in_redirect(重定向的端口)指令被定义。
 
-如果一个最长的匹配的前缀路径具有'^~'修饰语，那么正则表达式就不会被选择了。
+>Example:
 
->Also, using the “=” modifier it is possible to define an exact match of URI and location. If an exact match is found, the search terminates. For example, if a “/” request happens frequently, defining “location = /” will speed up the processing of these requests, as search terminates right after the first comparison. Such a location cannot obviously contain nested locations.
+例子
 
-同时，对一个URI和路径定义一个明确的匹配时使用'='修饰语是合适的。如果一个明确的匹配被找到了，搜索就会停止。举个例子，如果一个'/'请求经常地发生，定义'location = /'这个配置项将会加速这些请求的处理，因为在第一次比较之后，搜索就终止了。这种路径不能明显的包含一个嵌套的locations。
-
->In versions from 0.7.1 to 0.8.41, if a request matched the prefix location without the “=” and “^~” modifiers, the search also terminated and regular expressions were not checked.
-
-在0.7.1到0.8.41版本中，如果一个请求匹配了没有‘=’和‘^~’修饰语的前缀的路径，搜索会终止并且正则表达式不会被选择。
-
->Let’s illustrate the above by an example:
-
-让我们通过一个例子举例说明上述的情况：
 ```
-location = / {
-    [ configuration A ]
+server {
+    ...
+    rewrite ^(/download/.*)/media/(.*)\..*$ $1/mp3/$2.mp3 last;
+    rewrite ^(/download/.*)/audio/(.*)\..*$ $1/mp3/$2.ra  last;
+    return  403;
+    ...
+}
+```
+>But if these directives are put inside the “/download/” location, the last flag should be replaced by break, or otherwise nginx will make 10 cycles and return the 500 error:
+
+但是，如果这些指令是放在'/download/'（location）指令块内的，最后的flag（标志）应该被break替换，否则nginx将产生10个循环并返回一个状态码为500 的error（错误）：
+
+```
+location /download/ {
+    rewrite ^(/download/.*)/media/(.*)\..*$ $1/mp3/$2.mp3 break;
+    rewrite ^(/download/.*)/audio/(.*)\..*$ $1/mp3/$2.ra  break;
+    return  403;
+}
+```
+>If a replacement string includes the new request arguments, the previous request arguments are appended after them. If this is undesired, putting a question mark at the end of a replacement string avoids having them appended, for example:
+
+如果一个替换的字符串包括新的请求参数，之前的请求参数会追加到新的参数后面。如果这是不被期望的，在替换字符串的最后放置一个question（问号？）标签来避免追加它们，比如：
+
+```
+rewrite ^/users/(.*)$ /show?user=$1? last;
+```
+
+>If a regular expression includes the “}” or “;” characters, the whole expressions should be enclosed in single or double quotes.
+
+如果一个正则表达式包括 “}” 或者 “;”字符，那么该表达式应该被一个单引号或者双引号封闭。
+
+### break directive
+>Syntax:	break;  
+Default:	—  
+Context:	server, location, if  
+
+语法：  
+默认：  
+语境：  
+
+>Stops processing the current set of ngx_http_rewrite_module directives.
+
+停止处理当前的ngx_http_rewrite_module指令配置集。
+
+>If a directive is specified inside the location, further processing of the request continues in this location.
+
+如果一个指令是在location里面指定的，在这个location（路径）中的这个请求之后的（进一步的，更远的）进程会继续。
+
+>Example:
+
+```
+if ($slow) {
+    limit_rate 10k;
+    break;
+}
+```
+
+### if directive
+>Syntax:	if (condition) { ... }    
+Default:	—    
+Context:	server, location    
+
+语法：  
+默认：  
+语境：  
+
+>The specified condition is evaluated. If true, this module directives specified inside the braces are executed, and the request is assigned the configuration inside the if directive. Configurations inside the if directives are inherited from the previous configuration level.
+
+对指定的条件进行评估。如果值为真，被指定在这个大括号里面的这个模块指令将被执行，并且这个请求被分配到if指令内部的配置。if指令内部的配置继承于之前的配置层级。
+
+>A condition may be any of the following:
+
+一个条件可能是以下的任意一个：
+
+- a variable name; false if the value of a variable is an empty string or “0”;
+    >Before version 1.0.1, any string starting with “0” was considered a false value.
+- comparison of a variable with a string using the “=” and “!=” operators;
+- matching of a variable against a regular expression using the “~” (for case-sensitive matching) and “~*” (for case-insensitive matching) operators. Regular expressions can contain captures that are made available for later reuse in the $1..$9 variables. Negative operators “!~” and “!~*” are also available. If a regular expression includes the “}” or “;” characters, the whole expressions should be enclosed in single or double quotes.
+- checking of a file existence with the “-f” and “!-f” operators;
+- checking of a directory existence with the “-d” and “!-d” operators;
+- checking of a file, directory, or symbolic link existence with the “-e” and “!-e” operators;
+- checking for an executable file with the “-x” and “!-x” operators.
+>Examples:
+
+- 一个变量名；如果该变量的值是一个空字符串或者为0，那么该条件的值为false；
+    >在版本1.0.1之前，任意一个以0开始的字符串都被看做一个false的值。
+- 使用运算符“=” 和 “!=” 来对一个变量和一个字符串进行比较；
+- 使用“~”（大小写敏感匹配）和“~*”（大小写不敏感匹配）运算符来匹配一个变量和正则表达式。正则表达式可以包含捕获子组，这些子组被制成$1到$9的变量，以用于之后的重用。否定的运算符“!~” 和 “!~*”也是可利用的。如果一个正则表达式包括“}” 或者 “;” 字符，整个正则表达式应该被一组单引号或双引号封闭。
+- 使用“-f” 和 “!-f”运算符检查一个文件是否存在；
+- 使用“-d” 和 “!-d”运算符检查一个目录是否存在；
+- 使用“-e” 和 “!-e”运算符检查一个文件，目录，或者符号链接是否存在；
+- 使用“-x” 和 “!-x”运算符检查一个可执行文件是否存在；
+
+例如：
+
+```
+if ($http_user_agent ~ MSIE) {
+    rewrite ^(.*)$ /msie/$1 break;
+}
+
+if ($http_cookie ~* "id=([^;]+)(?:;|$)") {
+    set $id $1;
+}
+
+if ($request_method = POST) {
+    return 405;
+}
+
+if ($slow) {
+    limit_rate 10k;
+}
+
+if ($invalid_referer) {
+    return 403;
+}
+```
+>A value of the $invalid_referer embedded variable is set by the valid_referers directive.
+
+内置变量$invalid_referer(有效的参照页，引用页)的值被valid_referers指令设置。
+
+### 实例
+```
+location / {
+    # 情况一
+    try_files $uri $uri/ @rewrites;
+}
+
+location @rewrites {
+    rewrite ^.*$ /index.html break|last;
 }
 
 location / {
-    [ configuration B ]
+    # 情况二
+    try_files /index.html =404;
 }
 
-location /documents/ {
-    [ configuration C ]
+location / {
+    # 情况三
+    rewrite ^.*$ /index.html break;
 }
 
-location ^~ /images/ {
-    [ configuration D ]
+location / {
+    # 情况四
+    rewrite ^.*$ /index.html last;
 }
 
-location ~* \.(gif|jpg|jpeg)$ {
-    [ configuration E ]
+location / {
+    # 情况五
+    try_files $uri $uri/;
 }
+
+location /bd6/ {
+    # 情况七
+    rewrite ^.*$ http://www.baidu.com;
+    rewrite .* http://www.baidu.com;
+}
+
+location /bd6 {
+    # 情况八
+    rewrite ^.*$ http://www.baidu.com;
+    rewrite .* http://www.baidu.com;
+}
+
+location /bd7 {
+    # 情况九
+    rewrite ^.*$ http://www.google.com;
+}       
+
 ```
->The “/” request will match configuration A, the “/index.html” request will match configuration B, the “/documents/document.html” request will match configuration C, the “/images/1.gif” request will match configuration D, and the “/documents/1.jpg” request will match configuration E.
+#### 结果：
+情况一二三，正常，  
+情况三报错：
+>*2450 rewrite or internal redirection cycle while processing "/index.html", client: 120.0.0.1, server: backend-shop.ss1s.com, request: "GET /goodsShelf/list HTTP/1.1", host: "backend-shop.ss1s.com"
 
-'/'请求将匹配配置项A，‘index.html’请求将匹配配置项B，“/documents/document.html”请求将匹配配置项C，“/images/1.gif”请求将匹配配置项D，“/documents/1.jpg”请求将匹配配置项E。
+情况五报错:
+>*2538 rewrite or internal redirection cycle while internally redirecting to "/distributeSchool/list///////////", client: 113.57.70.119, server: backend-shop.hellobirds.top, request: "GET /distributeSchool/list HTTP/1.1", host: "backend-shop.hellobirds.top"
 
->The “@” prefix defines a named location. Such a location is not used for a regular request processing, but instead used for request redirection. They cannot be nested, and cannot contain nested locations.
+情况7：  
+当访问http://foobar.com/bd6时，第一个rewrite规则匹配不到，但第二个规则可以匹配
 
-‘@’前缀定义了一个命名的路径。这种路径不能被用于一个正则请求进程中，但是替代的，可以被用于请求重定向。它们不能是嵌套的，并且不能包含嵌套路径。
+情况八：  
+当访问http://foobar.com/bd6或者http://foobar.com/bd6/时，两个规则分别都可以匹配到
 
->If a location is defined by a prefix string that ends with the slash character, and requests are processed by one of proxy_pass, fastcgi_pass, uwsgi_pass, scgi_pass, memcached_pass, or grpc_pass, then the special processing is performed. In response to a request with URI equal to this string, but without the trailing slash, a permanent redirect with the code 301 will be returned to the requested URI with the slash appended. If this is not desired, an exact match of the URI and location could be defined like this:
-```
-location /user/ {
-    proxy_pass http://user.example.com;
-}
+### 参考资料
+[nginx官方文档](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite)  
+[JS-MDN：HTTP 的重定向](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Redirections)  
+[转发和重定向的区别](https://blog.csdn.net/powerfulK/article/details/71069888)  
+[内部跳转(请求转发)和外部跳转(重定向)的区别?](https://blog.csdn.net/pozmckaoddb/article/details/49617003)  
 
-location = /user {
-    proxy_pass http://login.example.com;
-}
-```
-
-如果一个路径被定义为一个字符串前缀，它们以一个斜杠字符作为结束，请求会被proxy_pass, fastcgi_pass, uwsgi_pass, scgi_pass, memcached_pass, 或者 grpc_pass 这些配置项其中之一处理，之后这个特别的进程就会被执行。在一个URI请求的响应和字符串的响应是相同的，但是没有尾部的斜杠，一个使用301状态码的永久的重定向将（会和一个追加的斜杠一起被返回给被请求的这个URI）被返回给这个被请求的具有后缀斜杠的URI。如果这不是渴望的（想得到的），一个URI和路径的确切的匹配可以被这样定义：
+##### 邮箱：<hellosonee@gmail.com>

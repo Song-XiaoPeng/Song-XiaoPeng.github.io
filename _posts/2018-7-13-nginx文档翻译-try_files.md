@@ -11,7 +11,7 @@ try_files file ... =code;
 
 >Checks the existence of files in the specified order and uses the first found file for request processing; the processing is performed in the current context. The path to a file is constructed from the file parameter according to the root and alias directives. It is possible to check directory’s existence by specifying a slash at the end of a name, e.g. “$uri/”. If none of the files were found, an internal redirect to the uri specified in the last parameter is made. For example:
 
-检查指定顺序的文件是否存在，使用第一个被找到的文件作为来处理请求；这个进程被运行在当前的上下文之中。文件的路径是通过参照根目录和指令别名的文件参数构建的。通过在一个名字后面定义一个斜杠，会去检查目录是否存在，比如‘$uri/’。如果没有文件（目录）被找到，就会产生一个最后一个参数中指定的uri的内部的重定向。例如：
+检查指定顺序的文件是否存在，使用第一个被找到的文件作为来处理请求；这个进程被运行在当前的上下文之中。文件的路径是通过参照根目录和指令别名的文件参数构建的。通过在一个名字后面定义一个斜杠，会去检查目录是否存在，比如‘$uri/’。如果没有文件（目录）被找到，就会产生一个最后一个参数中指定的uri的内部的重定向（内部跳转,转发）。例如：
 
 ```
 location /images/ {
@@ -134,3 +134,8 @@ location @wordpress {
     ... other fastcgi_param's
 }
 ```
+
+### 参考资料
+[nginx官方文档](http://nginx.org/en/docs/http/ngx_http_core_module.html#try_files)
+
+##### 邮箱：<hellosonee@gmail.com>

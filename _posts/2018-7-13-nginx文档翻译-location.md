@@ -89,3 +89,8 @@ location = /user {
 ```
 
 如果一个路径被定义为一个字符串前缀，它们以一个斜杠字符作为结束，请求会被proxy_pass, fastcgi_pass, uwsgi_pass, scgi_pass, memcached_pass, 或者 grpc_pass 这些配置项其中之一处理，之后这个特别的进程就会被执行。在一个URI请求的响应和字符串的响应是相同的，但是没有尾部的斜杠，一个使用301状态码的永久的重定向将（会和一个追加的斜杠一起被返回给被请求的这个URI）被返回给这个被请求的具有后缀斜杠的URI。如果这不是渴望的（想得到的），一个URI和路径的确切的匹配可以被这样定义：
+
+### 参考资料
+[nginx官方文档](http://nginx.org/en/docs/http/ngx_http_core_module.html#location)
+
+##### 邮箱：<hellosonee@gmail.com>
