@@ -43,22 +43,42 @@ listen unix:/var/run/nginx.sock;
 >The default_server parameter, if present, will cause the server to become the default server for the specified address:port pair. If none of the directives have the default_server parameter then the first server with the address:port pair will be the default server for this pair.
 
 default_server参数，如果出现，将使这个服务器变为指定地址:端口对的默认服务器。如果所有指令都没有default_server参数，那么第一个具有地址:端口对的服务器将会是这一对默认的服务器。
+
 ```
 In versions prior to 0.8.21 this parameter is named simply default.
 ```
+在0.8.21版本之前，这个参数被简单的命名为default。
+
 >The ssl parameter (0.7.14) allows specifying that all connections accepted on this port should work in SSL mode. This allows for a more compact configuration for the server that handles both HTTP and HTTPS requests.
+
+ssl参数允许指定在此端口上被接受的所有的连接应该在SSL模式下工作。这允许一个更紧凑的（合同、契约、紧凑的、紧密的、简洁的）服务器配置，同时处理HTTP和HTTPS请求。
 
 >The http2 parameter (1.9.5) configures the port to accept HTTP/2 connections. Normally, for this to work the ssl parameter should be specified as well, but nginx can also be configured to accept HTTP/2 connections without SSL.
 
+http2参数设置接受HTTP/2连接的端口。通常的，为了它能够工作，ssl参数也应该被指定，但是nginx也可以被设置为不使用SSL来接受HTTP/2连接。
+
 >The spdy parameter (1.3.15-1.9.4) allows accepting SPDY connections on this port. Normally, for this to work the ssl parameter should be specified as well, but nginx can also be configured to accept SPDY connections without SSL.
+
+spdy参数允许接受在此端口上的SPDY连接。通常地，为了使该参数正常工作，ssl参数也应该被指定，但是nginx也可以被设置为不使用SSL来接受SPDY连接。
 
 >The proxy_protocol parameter (1.5.12) allows specifying that all connections accepted on this port should use the PROXY protocol.
 
->The PROXY protocol version 2 is supported since version 1.13.11.
-The listen directive can have several additional parameters specific to socket-related system calls. These parameters can be specified in any listen directive, but only once for a given address:port pair.
+proxy_protocol代理协议参数允许指定所有此端口上被接受的连接应该使用PROXY协议。
+
+>The PROXY protocol version 2 is supported since version 1.13.11.  
+
+PROXY代理协议2版本自nginx版本1.13.11以来被支持。  
+
+>The listen directive can have several additional parameters specific to socket-related system calls. These parameters can be specified in any listen directive, but only once for a given address:port pair.
+
+listen指令对套接字相关的系统可以有多个附加的参数指定(特殊的、明确的、特定的、详细的，特性，细节)(listen指令可以有多个附加参数，具体到与套接字相关的系统调用)。这些参数可以在任意一个（任何）listen指令中指定，但是对于一个给予的地址:端口对只能（仅仅）使用一次。
+
 ```
 In versions prior to 0.8.21, they could only be specified in the listen directive together with the default parameter.
 ```
+
+在0.8.21版本之前，在listen指令中，它们只能和默认的参数一起被指定。（它们只能与默认参数一起在listen指令中指定）。
+
 - setfib=number
     >this parameter (0.8.44) sets the associated routing table, FIB (the SO_SETFIB option) for the listening socket. This currently works only on FreeBSD.
 - fastopen=number
@@ -87,15 +107,19 @@ In versions prior to 0.8.21, they could only be specified in the listen directiv
     >Inappropriate use of this option may have its security implications.
 - so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]
     >this parameter (1.1.11) configures the “TCP keepalive” behavior for the listening socket. If this parameter is omitted then the operating system’s settings will be in effect for the socket. If it is set to the value “on”, the SO_KEEPALIVE option is turned on for the socket. If it is set to the value “off”, the SO_KEEPALIVE option is turned off for the socket. Some operating systems support setting of TCP keepalive parameters on a per-socket basis using the TCP_KEEPIDLE, TCP_KEEPINTVL, and TCP_KEEPCNT socket options. On such systems (currently, Linux 2.4+, NetBSD 5+, and FreeBSD 9.0-STABLE), they can be configured using the keepidle, keepintvl, and keepcnt parameters. One or two parameters may be omitted, in which case the system default setting for the corresponding socket option will be in effect. For example,
+
     ```
     so_keepalive=30m::10
     ```
+
     >will set the idle timeout (TCP_KEEPIDLE) to 30 minutes, leave the probe interval (TCP_KEEPINTVL) at its system default, and set the probes count (TCP_KEEPCNT) to 10 probes.
 
 >Example:
+
 ```
 listen 127.0.0.1 default_server accept_filter=dataready backlog=1024;
 ```
+
 ### 参考资料
 [nginx官方文档](http://nginx.org/en/docs/http/ngx_http_core_module.html#listen)
 
