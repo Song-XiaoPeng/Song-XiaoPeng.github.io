@@ -215,6 +215,15 @@ location /bd7 {
     rewrite ^.*$ http://www.google.com;
 }       
 
+
+location ^~ /a {
+    # 情况十： 会转发给php处理
+    rewrite ^.*$ http://www.baidu.com;
+    rewrite ^\/a\/b\/(.*?)\.php$ /$1.php last;
+    try_files $uri /php_env.php; # 会先检查$uri文件是否存在，如果不存在，会产生一个最后一个参数指定的uri的跳转
+}
+
+
 ```
 #### 结果：
 情况一二三，正常，  

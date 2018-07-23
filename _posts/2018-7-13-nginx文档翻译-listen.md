@@ -77,27 +77,36 @@ listen指令对套接字相关的系统可以有多个附加的参数指定(特�
 In versions prior to 0.8.21, they could only be specified in the listen directive together with the default parameter.
 ```
 
-在0.8.21版本之前，在listen指令中，它们只能和默认的参数一起被指定。（它们只能与默认参数一起在listen指令中指定）。
+在0.8.21版本之前，在listen指令中，它们只能和默认的参数一起被指定。（它们只能与默认参数一起在listen指令中指定。）
 
 - setfib=number
+
     >this parameter (0.8.44) sets the associated routing table, FIB (the SO_SETFIB option) for the listening socket. This currently works only on FreeBSD.
 - fastopen=number
+
     >enables “TCP Fast Open” for the listening socket (1.5.8) and limits the maximum length for the queue of connections that have not yet completed the three-way handshake.
 
     >Do not enable this feature unless the server can handle receiving the same SYN packet with data more than once.
 - backlog=number
+
     >sets the backlog parameter in the listen() call that limits the maximum length for the queue of pending connections. By default, backlog is set to -1 on FreeBSD, DragonFly BSD, and macOS, and to 511 on other platforms.
 - rcvbuf=size
+
     >sets the receive buffer size (the SO_RCVBUF option) for the listening socket.
 - sndbuf=size
+
     >sets the send buffer size (the SO_SNDBUF option) for the listening socket.
 - accept_filter=filter
+
     >sets the name of accept filter (the SO_ACCEPTFILTER option) for the listening socket that filters incoming connections before passing them to accept(). This works only on FreeBSD and NetBSD 5.0+. Possible values are dataready and httpready.
 - deferred
+
     >instructs to use a deferred accept() (the TCP_DEFER_ACCEPT socket option) on Linux.
 - bind
+
     >instructs to make a separate bind() call for a given address:port pair. This is useful because if there are several listen directives with the same port but different addresses, and one of the listen directives listens on all addresses for the given port (*:port), nginx will bind() only to *:port. It should be noted that the getsockname() system call will be made in this case to determine the address that accepted the connection. If the setfib, backlog, rcvbuf, sndbuf, accept_filter, deferred, ipv6only, or so_keepalive parameters are used then for a given address:port pair a separate bind() call will always be made.
 - ipv6only=on|off
+
     >this parameter (0.7.42) determines (via the IPV6_V6ONLY socket option) whether an IPv6 socket listening on a wildcard address [::] will accept only IPv6 connections or both IPv6 and IPv4 connections. This parameter is turned on by default. It can only be set once on start.
 
     >Prior to version 1.3.4, if this parameter was omitted then the operating system’s settings were in effect for the socket.
@@ -106,6 +115,7 @@ In versions prior to 0.8.21, they could only be specified in the listen directiv
     
     >Inappropriate use of this option may have its security implications.
 - so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]
+ 
     >this parameter (1.1.11) configures the “TCP keepalive” behavior for the listening socket. If this parameter is omitted then the operating system’s settings will be in effect for the socket. If it is set to the value “on”, the SO_KEEPALIVE option is turned on for the socket. If it is set to the value “off”, the SO_KEEPALIVE option is turned off for the socket. Some operating systems support setting of TCP keepalive parameters on a per-socket basis using the TCP_KEEPIDLE, TCP_KEEPINTVL, and TCP_KEEPCNT socket options. On such systems (currently, Linux 2.4+, NetBSD 5+, and FreeBSD 9.0-STABLE), they can be configured using the keepidle, keepintvl, and keepcnt parameters. One or two parameters may be omitted, in which case the system default setting for the corresponding socket option will be in effect. For example,
 
     ```
